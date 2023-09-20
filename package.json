@@ -1,7 +1,7 @@
 {
-  "name": "vue-pivottable",
-  "private": true,
-  "version": "0.4.65",
+  "name": "vue-pivottable-pro",
+  "private": false,
+  "version": "0.1.1",
   "main": "dist/vue-pivottable.mjs",
   "files": [
     "dist",
@@ -19,16 +19,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Seungwoo321/vue-pivottable.git"
+    "url": "git://github.com/xiamocc/vue-pivottable.git"
   },
   "keywords": [
     "vue",
     "pivot",
     "pivottable",
-    "vue-pivottable"
+    "vue-pivottable-plus"
   ],
-  "homepage": "https://seungwoo321.github.io/vue-pivottable/",
-  "author": "Seungwoo, Lee <seungwoo321@gmail.com> (https://github.com/seungwoo321)",
+  "homepage": "https://github.com/xiamocc/vue-pivottable",
+  "author": "xiamocc <xiamocc@gmail.com> (https://github.com/xiamocc)",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
