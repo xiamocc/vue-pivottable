@@ -1,4 +1,3 @@
-
 const addSeparators = function (nStr, thousandsSep, decimalSep) {
   const x = String(nStr).split('.')
   let x1 = x[0]
@@ -222,10 +221,7 @@ const aggregatorTemplates = {
       return function (data) {
         return {
           val: null,
-          sorter: getSort(
-            typeof data !== 'undefined' ? data.sorters : null,
-            attr
-          ),
+          sorter: getSort(typeof data !== 'undefined' ? data.sorters : null, attr),
           push (record) {
             let x = record[attr]
             if (['min', 'max'].includes(mode)) {
@@ -235,12 +231,14 @@ const aggregatorTemplates = {
               }
             }
             if (
-              mode === 'first' && this.sorter(x, this.val !== null ? this.val : x) <= 0
+              mode === 'first' &&
+       this.sorter(x, this.val !== null ? this.val : x) <= 0
             ) {
               this.val = x
             }
             if (
-              mode === 'last' && this.sorter(x, this.val !== null ? this.val : x) >= 0
+              mode === 'last' &&
+       this.sorter(x, this.val !== null ? this.val : x) >= 0
             ) {
               this.val = x
             }
@@ -350,7 +348,8 @@ const aggregatorTemplates = {
             return this.sumNum / this.sumDenom
           },
           format: formatter,
-          numInputs: typeof num !== 'undefined' && typeof denom !== 'undefined' ? 0 : 2
+          numInputs:
+      typeof num !== 'undefined' && typeof denom !== 'undefined' ? 0 : 2
         }
       }
     }
@@ -368,7 +367,8 @@ const aggregatorTemplates = {
           format: formatter,
           value () {
             return (
-              this.inner.value() / data.getAggregator(...Array.from(this.selector || [])).inner.value()
+              this.inner.value() /
+       data.getAggregator(...Array.from(this.selector || [])).inner.value()
             )
           },
           numInputs: wrapped(...Array.from(x || []))().numInputs
@@ -377,19 +377,27 @@ const aggregatorTemplates = {
   }
 }
 
-aggregatorTemplates.countUnique = f => aggregatorTemplates.uniques(x => x.length, f)
-aggregatorTemplates.listUnique = s => aggregatorTemplates.uniques(x => x.join(s), x => x)
-aggregatorTemplates.max = f => aggregatorTemplates.extremes('max', f)
-aggregatorTemplates.min = f => aggregatorTemplates.extremes('min', f)
-aggregatorTemplates.first = f => aggregatorTemplates.extremes('first', f)
-aggregatorTemplates.last = f => aggregatorTemplates.extremes('last', f)
-aggregatorTemplates.median = f => aggregatorTemplates.quantile(0.5, f)
-aggregatorTemplates.average = f => aggregatorTemplates.runningStat('mean', 1, f)
-aggregatorTemplates.var = (ddof, f) => aggregatorTemplates.runningStat('var', ddof, f)
-aggregatorTemplates.stdev = (ddof, f) => aggregatorTemplates.runningStat('stdev', ddof, f)
+aggregatorTemplates.countUnique = (f) =>
+  aggregatorTemplates.uniques((x) => x.length, f)
+aggregatorTemplates.listUnique = (s) =>
+  aggregatorTemplates.uniques(
+    (x) => x.join(s),
+    (x) => x
+  )
+aggregatorTemplates.max = (f) => aggregatorTemplates.extremes('max', f)
+aggregatorTemplates.min = (f) => aggregatorTemplates.extremes('min', f)
+aggregatorTemplates.first = (f) => aggregatorTemplates.extremes('first', f)
+aggregatorTemplates.last = (f) => aggregatorTemplates.extremes('last', f)
+aggregatorTemplates.median = (f) => aggregatorTemplates.quantile(0.5, f)
+aggregatorTemplates.average = (f) =>
+  aggregatorTemplates.runningStat('mean', 1, f)
+aggregatorTemplates.var = (ddof, f) =>
+  aggregatorTemplates.runningStat('var', ddof, f)
+aggregatorTemplates.stdev = (ddof, f) =>
+  aggregatorTemplates.runningStat('stdev', ddof, f)
 
 // default aggregators & renderers use US naming and number formatting
-const aggregators = (tpl => ({
+const aggregators = ((tpl) => ({
   Count: tpl.count(usFmtInt),
   'Count Unique Values': tpl.countUnique(usFmtInt),
   'List Unique Values': tpl.listUnique(', '),
@@ -414,7 +422,7 @@ const aggregators = (tpl => ({
 
 // fr aggregators
 
-const frAggregators = (tpl => ({
+const frAggregators = ((tpl) => ({
   Compte: tpl.count(usFmtInt),
   'Compter les valeurs uniques': tpl.countUnique(usFmtInt),
   'Liste des valeurs uniques': tpl.listUnique(', '),
@@ -430,11 +438,54 @@ const frAggregators = (tpl => ({
   Dernier: tpl.last(usFmt),
   'Somme Total': tpl.sumOverSum(usFmt),
   'Somme en fraction du total': tpl.fractionOf(tpl.sum(), 'total', usFmtPct),
-  'Somme en tant que fraction de lignes': tpl.fractionOf(tpl.sum(), 'row', usFmtPct),
-  'Somme en tant que fraction de colonnes': tpl.fractionOf(tpl.sum(), 'col', usFmtPct),
-  'Comptage en tant que fraction du total': tpl.fractionOf(tpl.count(), 'total', usFmtPct),
-  'Comptage en tant que fraction de lignes': tpl.fractionOf(tpl.count(), 'row', usFmtPct),
-  'Comptage en tant que fraction de colonnes': tpl.fractionOf(tpl.count(), 'col', usFmtPct)
+  'Somme en tant que fraction de lignes': tpl.fractionOf(
+    tpl.sum(),
+    'row',
+    usFmtPct
+  ),
+  'Somme en tant que fraction de colonnes': tpl.fractionOf(
+    tpl.sum(),
+    'col',
+    usFmtPct
+  ),
+  'Comptage en tant que fraction du total': tpl.fractionOf(
+    tpl.count(),
+    'total',
+    usFmtPct
+  ),
+  'Comptage en tant que fraction de lignes': tpl.fractionOf(
+    tpl.count(),
+    'row',
+    usFmtPct
+  ),
+  'Comptage en tant que fraction de colonnes': tpl.fractionOf(
+    tpl.count(),
+    'col',
+    usFmtPct
+  )
+}))(aggregatorTemplates)
+
+const zhAggregators = ((tpl) => ({
+  频数: tpl.count(usFmtInt),
+  非重复值的个数: tpl.countUnique(usFmtInt),
+  列出非重复值: tpl.listUnique(', '),
+  求和: tpl.sum(usFmt),
+  求和后取整: tpl.sum(usFmtInt),
+  平均值: tpl.average(usFmt),
+  中位数: tpl.median(usFmt),
+  方差: tpl.var(1, usFmt),
+  样本标准偏差: tpl.stdev(1, usFmt),
+  最小值: tpl.min(usFmt),
+  最大值: tpl.max(usFmt),
+  第一: tpl.first(usFmt),
+  最后: tpl.last(usFmt),
+  两和之比: tpl.sumOverSum(usFmt),
+  和在总计中的比例: tpl.fractionOf(tpl.sum(), 'total', usFmtPct),
+  和在行合计中的比例: tpl.fractionOf(tpl.sum(), 'row', usFmtPct),
+  和在列合计中的比例: tpl.fractionOf(tpl.sum(), 'col', usFmtPct),
+  频数在总计中的比例: tpl.fractionOf(tpl.count(), 'total', usFmtPct),
+  频数在行合计中的比例: tpl.fractionOf(tpl.count(), 'row', usFmtPct),
+  频数在列合计中的比例: tpl.fractionOf(tpl.count(), 'col', usFmtPct)
 }))(aggregatorTemplates)
 
 const locales = {
@@ -456,11 +507,12 @@ const locales = {
     }
   },
   fr: {
-    frAggregators,
+    aggregators: frAggregators,
     localeStrings: {
       renderError: 'Une erreur est survenue en dessinant le tableau croisé.',
       computeError: 'Une erreur est survenue en calculant le tableau croisé.',
-      uiRenderError: "Une erreur est survenue en dessinant l'interface du tableau croisé dynamique.",
+      uiRenderError:
+    "Une erreur est survenue en dessinant l'interface du tableau croisé dynamique.",
       selectAll: 'Sélectionner tout',
       selectNone: 'Ne rien sélectionner',
       tooMany: '(trop de valeurs à afficher)',
@@ -471,6 +523,21 @@ const locales = {
       apply: 'Appliquer',
       cancel: 'Annuler',
       only: 'seul'
+    }
+  },
+  zh: {
+    aggregators: zhAggregators,
+    localeStrings: {
+      renderError: '展示结果时出错。',
+      computeError: '计算结果时出错。',
+      uiRenderError: '展示界面时出错。',
+      selectAll: '选择全部',
+      selectNone: '全部不选',
+      tooMany: '(因数据过多而无法列出)',
+      filterResults: '输入值帮助筛选',
+      totals: '合计',
+      vs: '于',
+      by: '分组于'
     }
   }
 }
@@ -491,11 +558,11 @@ const mthNamesEn = [
   'Dec'
 ]
 const dayNamesEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-const zeroPad = number => `0${number}`.substr(-2, 2) // eslint-disable-line no-magic-numbers
+const zeroPad = (number) => `0${number}`.substr(-2, 2) // eslint-disable-line no-magic-numbers
 
 const derivers = {
   bin (col, binWidth) {
-    return record => record[col] - record[col] % binWidth
+    return (record) => record[col] - (record[col] % binWidth)
   },
   dateFormat (
     col,
@@ -560,7 +627,7 @@ class PivotData {
     PivotData.forEachRecord(
       this.props.data,
       this.props.derivedAttributes,
-      record => {
+      (record) => {
         if (this.filter(record)) {
           this.filteredData.push(record)
           this.processRecord(record)
@@ -581,7 +648,7 @@ class PivotData {
     return PivotData.forEachRecord(
       this.props.data,
       this.props.derivedAttributes,
-      record => {
+      (record) => {
         if (!this.filter(record)) {
           return
         }
@@ -659,7 +726,7 @@ class PivotData {
   }
 
   processRecord (record) {
-    // this code is called in a tight loop
+  // this code is called in a tight loop
     const colKey = []
     const rowKey = []
     for (const x of Array.from(this.props.cols)) {
@@ -694,11 +761,7 @@ class PivotData {
         this.tree[flatRowKey] = {}
       }
       if (!this.tree[flatRowKey][flatColKey]) {
-        this.tree[flatRowKey][flatColKey] = this.aggregator(
-          this,
-          rowKey,
-          colKey
-        )
+        this.tree[flatRowKey][flatColKey] = this.aggregator(this, rowKey, colKey)
       }
       this.tree[flatRowKey][flatColKey].push(record)
     }
