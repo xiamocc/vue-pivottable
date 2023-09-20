@@ -1,11 +1,16 @@
 <template>
   <div id="app">
-    <a href="https://github.com/seungwoo321/vue-pivottable" target="_blank"
-      style="position: fixed; top: 1rem; right: 1rem;">
+    <a
+      href="https://github.com/seungwoo321/vue-pivottable"
+      target="_blank"
+      style="position: fixed; top: 1rem; right: 1rem"
+    >
       <svg id="i-github" viewBox="0 0 64 64" width="36" height="36">
-        <path stroke-width="0" fill="black"
-          d="M32 0 C14 0 0 14 0 32 0 53 19 62 22 62 24 62 24 61 24 60 L24 55 C17 57 14 53 13 50 13 50 13 49 11 47 10 46 6 44 10 44 13 44 15 48 15 48 18 52 22 51 24 50 24 48 26 46 26 46 18 45 12 42 12 31 12 27 13 24 15 22 15 22 13 18 15 13 15 13 20 13 24 17 27 15 37 15 40 17 44 13 49 13 49 13 51 20 49 22 49 22 51 24 52 27 52 31 52 42 45 45 38 46 39 47 40 49 40 52 L40 60 C40 61 40 62 42 62 45 62 64 53 64 32 64 14 50 0 32 0 Z">
-        </path>
+        <path
+          stroke-width="0"
+          fill="black"
+          d="M32 0 C14 0 0 14 0 32 0 53 19 62 22 62 24 62 24 61 24 60 L24 55 C17 57 14 53 13 50 13 50 13 49 11 47 10 46 6 44 10 44 13 44 15 48 15 48 18 52 22 51 24 50 24 48 26 46 26 46 18 45 12 42 12 31 12 27 13 24 15 22 15 22 13 18 15 13 15 13 20 13 24 17 27 15 37 15 40 17 44 13 49 13 49 13 51 20 49 22 49 22 51 24 52 27 52 31 52 42 45 45 38 46 39 47 40 49 40 52 L40 60 C40 61 40 62 42 62 45 62 64 53 64 32 64 14 50 0 32 0 Z"
+        ></path>
       </svg>
     </a>
     <div class="title">
@@ -13,62 +18,69 @@
       <small>Sample Dataset: Tips({{ filteredData.length }})</small>
     </div>
     <div>
-      <select v-model="locale">
-        <option value="en" :selected="locale === 'en' ? 'selected' : undefined">en</option>
-        <option value="ko" :selected="locale === 'ko' ? 'selected' : undefined">ko</option>
-        <option value="fr" :selected="locale === 'fr' ? 'selected' : undefined">fr</option>
+      <select  v-model="modelLocale" @change="localeChange">
+        <option value="en" :selected="locale === 'en' ? 'selected' : undefined">
+          en
+        </option>
+        <option value="ko" :selected="locale === 'ko' ? 'selected' : undefined">
+          ko
+        </option>
+        <option value="fr" :selected="locale === 'fr' ? 'selected' : undefined">
+          fr
+        </option>
+        <option value="zh" :selected="locale === 'zh' ? 'selected' : undefined">
+          zh
+        </option>
       </select>
     </div>
-      <div class="main-wrapper">
-        <vue-pivottable-ui
-          v-model="config"
-          :data="pivotData"
-          :locale="locale"
-          :locales="locales"
-          :renderers="renderers"
-          :aggregatorName="aggregatorName"
-          :tableColorScaleGenerator="colorScaleGenerator"
-          :attributes="attributes"
-          :valueFilter="valueFilter"
-          :rows="rows"
-          :cols="cols"
-          :vals="vals"
-          :colLimit="100"
-          :rowLimit="100"
-          :async="false"
-          :disabledFromDragDrop="disabledFromDragDrop"
-          :sortonlyFromDragDrop="sortonlyFromDragDrop"
-          :hiddenFromDragDrop="hiddenFromDragDrop"
-          :sorters="sorters"
-          rowOrder="key_a_to_z"
-          :tableOptions="tableOptions"
-          :menuLimit="10000"
-          @no:filterbox="noFilterbox"
-        >
-          <!-- Slot ColGroup -->
-          <template v-slot:colGroup>
-            <colgroup>
-              <col :width="300">
-              <col>
-            </colgroup>
-          </template>
-          <!-- Slot Output -->
-          <!-- <template v-slot:output>
+    <div class="main-wrapper">
+      <vue-pivottable-ui
+        v-model="config"
+        :data="pivotData"
+        :locale="locale"
+        :locales="locales"
+        :renderers="renderers"
+        :aggregatorName="aggregatorName"
+        :tableColorScaleGenerator="colorScaleGenerator"
+        :attributes="attributes"
+        :valueFilter="valueFilter"
+        :rows="rows"
+        :cols="cols"
+        :vals="vals"
+        :colLimit="100"
+        :rowLimit="100"
+        :async="false"
+        :disabledFromDragDrop="disabledFromDragDrop"
+        :sortonlyFromDragDrop="sortonlyFromDragDrop"
+        :hiddenFromDragDrop="hiddenFromDragDrop"
+        :sorters="sorters"
+        rowOrder="key_a_to_z"
+        :tableOptions="tableOptions"
+        :menuLimit="10000"
+        @no:filterbox="noFilterbox"
+      >
+        <!-- Slot ColGroup -->
+        <template v-slot:colGroup>
+          <colgroup>
+            <col :width="300" />
+            <col />
+          </colgroup>
+        </template>
+        <!-- Slot Output -->
+        <!-- <template v-slot:output>
                   <div v-if="loading">
                     loading...
                   </div>
                 </template> -->
-          <div v-if="loading" slot="output">
-            loading...
-          </div>
+        <div v-if="loading" slot="output">loading...</div>
 
-          <!-- Scoped Slot PvtAttr -->
-          <template v-slot:pvtAttr="{ name }">
-            {{ name }}
-          </template>
+        <!-- Scoped Slot PvtAttr -->
+        <template v-slot:pvtAttr="{ name }">
+          {{ name }}
+        </template>
 
-          <!-- Scoped Slot Output -->
-          <!-- <template v-if="!loading" v-slot:output="{ pivotData }">
+        <!-- Scoped Slot Output -->
+        <!-- <template v-if="!loading" v-slot:output="{ pivotData }">
                   <div v-if="!viewTable">
                     <button @click="viewTable = !viewTable">
                       View Table
@@ -92,9 +104,8 @@
                     </heatmap-renderer>
                   </template>
                 </template> -->
-
-        </vue-pivottable-ui>
-        <!-- <vue-pivottable
+      </vue-pivottable-ui>
+      <!-- <vue-pivottable
                 :data="data"
                 :rendererName="rendererName"
                 :aggregatorName="aggregatorName"
@@ -106,10 +117,21 @@
                 :locale="locale"
               >
               </vue-pivottable> -->
-        <textarea style="height: 500px; margin: 10px;" readonly :value="JSON.stringify(config, undefined, 2)">
-        </textarea>
-      </div>
-    <footer>Released under the <a href="//github.com/seungwoo321/vue-pivottable/blob/master/LICENSE">MIT</a> license. <a href="//github.com/seungwoo321/vue-pivottable">View source.</a></footer>
+      <textarea
+        style="height: 500px; margin: 10px"
+        readonly
+        :value="JSON.stringify(config, undefined, 2)"
+      >
+      </textarea>
+    </div>
+    <footer>
+      Released under the
+      <a href="//github.com/seungwoo321/vue-pivottable/blob/master/LICENSE"
+        >MIT</a
+      >
+      license.
+      <a href="//github.com/seungwoo321/vue-pivottable">View source.</a>
+    </footer>
   </div>
 </template>
 
@@ -142,18 +164,36 @@ export default {
       filteredData: [],
       pivotData: btcDaily,
       asyncFields: ['Unused 1'],
-      attributes: ['Unused 1', 'unix', 'date', 'symbol', 'open', 'high', 'low', 'close', 'Volume BTC', 'Volume USD'],
+      attributes: [
+        'Unused 1',
+        'unix',
+        'date',
+        'symbol',
+        'open',
+        'high',
+        'low',
+        'close',
+        'Volume BTC',
+        'Volume USD'
+      ],
       rows: ['date'],
       cols: ['symbol'],
       vals: ['Volume BTC'],
       disabledFromDragDrop: [], // ['Payer Gender'],
       hiddenFromDragDrop: [],
       sortonlyFromDragDrop: [], // ['Party Size'],
-      pivotColumns: ['Meal', 'Payer Smoker', 'Day of Week', 'Payer Gender', 'Party Size'],
+      pivotColumns: [
+        'Meal',
+        'Payer Smoker',
+        'Day of Week',
+        'Payer Gender',
+        'Party Size'
+      ],
       loading: false,
-      aggregatorName: 'Sum',
+      aggregatorName: '求和',
       rendererName: 'Table',
-      locale: 'en'
+      modelLocale: 'zh',
+      locale: 'zh'
     }
   },
   created () {
@@ -164,40 +204,31 @@ export default {
       return {
         clickCallback: function (e, value, filters, pivotData) {
           const values = []
-          pivotData.forEachMatchingRecord(filters,
-            function (record) {
-              values.push(Object.values(record))
-            }
-          )
+          pivotData.forEachMatchingRecord(filters, function (record) {
+            values.push(Object.values(record))
+          })
           alert(values.join('\n'))
         }
       }
     },
     sorters () {
       return {
-        'Day of Week': PivotUtilities.sortAs(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+        'Day of Week': PivotUtilities.sortAs([
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+          'Sunday'
+        ])
       }
     },
     locales () {
       return {
         fr: PivotUtilities.locales.fr,
         en: PivotUtilities.locales.en,
-        ko: {
-          aggregators: this.aggregators,
-          localeStrings: {
-            renderError: '피벗 테이블 결과를 렌더링하는 동안 오류가 발생 했습니다.',
-            computeError: '피벗 테이블 결과를 계산하는 동안 오류가 발생 했습니다.',
-            uiRenderError: '피벗 테이블 UI를 렌더링하는 동안 오류가 발생 했습니다.',
-            selectAll: '모두 선택',
-            selectNone: '선택 안함',
-            tooMany: '표시 할 값이 너무 많습니다.',
-            filterResults: '값 필터링',
-            totals: '합계',
-            only: '단독',
-            vs: 'vs',
-            by: 'by'
-          }
-        }
+        zh: PivotUtilities.locales.zh
       }
     },
     aggregators () {
@@ -224,14 +255,33 @@ export default {
         First: tpl.first(usFmt),
         Last: tpl.last(usFmt),
         'Sum over Sum': tpl.sumOverSum(usFmt),
-        'Sum as Fraction of Total': tpl.fractionOf(tpl.sum(), 'total', usFmtPct),
+        'Sum as Fraction of Total': tpl.fractionOf(
+          tpl.sum(),
+          'total',
+          usFmtPct
+        ),
         'Sum as Fraction of Rows': tpl.fractionOf(tpl.sum(), 'row', usFmtPct),
-        'Sum as Fraction of Columns': tpl.fractionOf(tpl.sum(), 'col', usFmtPct),
-        'Count as Fraction of Total': tpl.fractionOf(tpl.count(), 'total', usFmtPct),
-        'Count as Fraction of Rows': tpl.fractionOf(tpl.count(), 'row', usFmtPct),
-        'Count as Fraction of Columns': tpl.fractionOf(tpl.count(), 'col', usFmtPct)
-      })
-      )(PivotUtilities.aggregatorTemplates)
+        'Sum as Fraction of Columns': tpl.fractionOf(
+          tpl.sum(),
+          'col',
+          usFmtPct
+        ),
+        'Count as Fraction of Total': tpl.fractionOf(
+          tpl.count(),
+          'total',
+          usFmtPct
+        ),
+        'Count as Fraction of Rows': tpl.fractionOf(
+          tpl.count(),
+          'row',
+          usFmtPct
+        ),
+        'Count as Fraction of Columns': tpl.fractionOf(
+          tpl.count(),
+          'col',
+          usFmtPct
+        )
+      }))(PivotUtilities.aggregatorTemplates)
     },
     renderers () {
       const TableRenderer = Renderer.TableRenderer
@@ -251,16 +301,19 @@ export default {
         'Area Chart': PlotlyRenderer['Area Chart'],
         'Scatter Chart': PlotlyRenderer['Scatter Chart'],
         'Multiple Pie Chart': PlotlyRenderer['Multiple Pie Chart']
-      })
-      )()
+      }))()
     }
   },
   methods: {
+    localeChange (e) {
+      this.aggregatorName = e.value === 'zh' ? '求和' : 'Sum'
+      this.locale = e.value
+    },
     colorScaleGenerator (values) {
       const scale = scaleLinear()
         .domain([0, Math.max.apply(null, values)])
         .range(['#fff', '#77f'])
-      return x => {
+      return (x) => {
         return { 'background-color': scale(x) }
       }
     },
@@ -294,7 +347,7 @@ export default {
     flex-flow: row;
   }
 
-  .main-wrapper>textarea {
+  .main-wrapper > textarea {
     width: 500px;
   }
 }
