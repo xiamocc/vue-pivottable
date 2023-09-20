@@ -70,7 +70,7 @@ export default {
     },
     numValsAllowed () {
       return (
-        this.aggregatorItems[this.propsData.aggregatorName]([])().numInputs || 0
+        this.aggregatorItems[this.aggregatorName]([])().numInputs || 0
       )
     },
     rowAttrs () {
@@ -142,6 +142,17 @@ export default {
     this.materializeInput(nextProps.data)
   },
   watch: {
+    aggregatorName: {
+      handler (value) {
+        this.propsData.aggregatorName = value
+      }
+    },
+    locale: {
+      handler (value) {
+        this.propsData.locale = value
+        this.propsData.aggregators = this.locales?.[this.locale]?.aggregator
+      }
+    },
     rowOrder: {
       handler (value) {
         this.propsData.rowOrder = value

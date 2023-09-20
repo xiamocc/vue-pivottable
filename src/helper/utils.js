@@ -507,6 +507,28 @@ const locales = {
     }
   },
   fr: {
+    compareAggregators: {
+      Compte: 'Count',
+      'Compter les valeurs uniques': 'Count Unique Values',
+      'Liste des valeurs uniques': 'List Unique Values',
+      Somme: 'Sum',
+      'Somme de nombres entiers': 'Integer Sum',
+      Moyenne: 'Average',
+      Médiane: 'Median',
+      "Variance de l'échantillon": 'Sample Variance',
+      "Écart-type de l'échantillon": 'Sample Standard Deviation',
+      Minimum: 'Minimum',
+      Maximum: 'Maximum',
+      Premier: 'First',
+      Dernier: 'Last',
+      'Somme Total': 'Sum over Sum',
+      'Somme en fraction du total': 'Sum as Fraction of Total',
+      'Somme en tant que fraction de lignes': 'Sum as Fraction of Rows',
+      'Somme en tant que fraction de colonnes': 'Sum as Fraction of Columns',
+      'Comptage en tant que fraction du total': 'Count as Fraction of Total',
+      'Comptage en tant que fraction de lignes': 'Count as Fraction of Rows',
+      'Comptage en tant que fraction de colonnes': 'Count as Fraction of Columns'
+    },
     aggregators: frAggregators,
     localeStrings: {
       renderError: 'Une erreur est survenue en dessinant le tableau croisé.',
@@ -526,6 +548,28 @@ const locales = {
     }
   },
   zh: {
+    compareAggregators: {
+      频数: 'Count',
+      非重复值的个数: 'Count Unique Values',
+      列出非重复值: 'List Unique Values',
+      求和: 'Sum',
+      求和后取整: 'Integer Sum',
+      平均值: 'Average',
+      中位数: 'Median',
+      方差: 'Sample Variance',
+      样本标准偏差: 'Sample Standard Deviation',
+      最小值: 'Minimum',
+      最大值: 'Maximum',
+      第一: 'First',
+      最后: 'Last',
+      两和之比: 'Sum over Sum',
+      和在总计中的比例: 'Sum as Fraction of Total',
+      和在行合计中的比例: 'Sum as Fraction of Rows',
+      和在列合计中的比例: 'Sum as Fraction of Columns',
+      频数在总计中的比例: 'Count as Fraction of Total',
+      频数在行合计中的比例: 'Count as Fraction of Rows',
+      频数在列合计中的比例: 'Count as Fraction of Columns'
+    },
     aggregators: zhAggregators,
     localeStrings: {
       renderError: '展示结果时出错。',
@@ -847,6 +891,7 @@ PivotData.forEachRecord = function (input, derivedAttributes, f) {
 
 PivotData.defaultProps = {
   aggregators: aggregators,
+  locales: locales,
   cols: [],
   rows: [],
   vals: [],
