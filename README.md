@@ -8,12 +8,21 @@ It is a Vue port of the jQuery-based [PivotTable.js](https://pivottable.js.org/)
 [![npm](https://flat.badgen.net/npm/license/vue-pivottable)](https://flat.badgen.net/npm/license/vue-pivottable)
 [![jsdelivr](https://data.jsdelivr.com/v1/package/npm/vue-pivottable/badge)](https://www.jsdelivr.com/package/npm/vue-pivottable)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+## Manual
+
+This project comes from [origin project](https://github.com/seungwoo321/vue-pivottable). Above this, I added the calls of the built -in locales.zh and Locales.aggregators to fully realize `locale.zh`.
+
+## Features
+
+* `locale` is available only when initialization. Dynamic switching will cause internal errors. This problem will be repaired in the future.
+* The `locales` configuration driven by the plug -in configuration
 
 ## Documentation
 
-You can view the documentation at <https://seungwoo321.github.io/vue-pivottable>. 
+You can view the documentation at <https://seungwoo321.github.io/vue-pivottable>.
 It's also lighter by removing `vue-plotly` from the dependencies.
 
 ## Live Demo
@@ -24,16 +33,17 @@ It's also lighter by removing `vue-plotly` from the dependencies.
 
 ```bash
 # Clone the project
-git clone https://github.com/Seungwoo321/vue-pivottable.git
+git clone https://github.com/xiamocc/vue-pivottable.git
 
 # Go into the cloned directory
 cd vue-pivottable/example/
 
-# npm install
-npm install
+# Please use Yarn 1.0
+# yarn install
+yarn install
 
-# npm run serve
-npm run serve
+# yarn run serve
+yarn run serve
 ```
 
 Open browser to <http://localhost:8080>
